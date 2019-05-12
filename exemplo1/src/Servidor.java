@@ -27,11 +27,10 @@ public class Servidor {
 
         try {
             datagramSocket.receive(mensagemRecebida);
+            Logger.info("Mensagem recebida com sucesso." + obterClienteComoString(mensagemRecebida));
         } catch (Exception e) {
             Logger.error("Erro ao receber mensagem de cliente." + obterClienteComoString(mensagemRecebida), e);
             System.exit(1);
-        } finally {
-            Logger.info("Mensagem recebida com sucesso." + obterClienteComoString(mensagemRecebida));
         }
 
         return mensagemRecebida;
@@ -43,10 +42,9 @@ public class Servidor {
         try {
             Logger.info("Enviando mensagem de resposta para o cliente." + cliente);
             datagramSocket.send(new DatagramPacket(mensagem.getData(), mensagem.getLength(), mensagem.getAddress(), mensagem.getPort()));
+            Logger.info("Mensagem de resposta enviada ao cliente com sucesso." + cliente);
         } catch (Exception e) {
             Logger.error("Erro ao enviar mensagem para o cliente." + cliente, e);
-        } finally {
-            Logger.info("Mensagem de resposta enviada ao cliente com sucesso." + cliente);
         }
     }
 
