@@ -1,2 +1,2 @@
 # sockets-java
-Implementation of sockets with java.
+Implementação de sockets com java.
