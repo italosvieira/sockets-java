@@ -59,4 +59,15 @@ public class Questao {
     public void setNumeroErros(Integer numeroErros) {
         this.numeroErros = numeroErros;
     }
+
+    @Override
+    public int hashCode() {
+        return this.getNumeroQuestao().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof Questao && ((Questao) other).getNumeroQuestao().equals(this.getNumeroQuestao());
+
+    }
 }

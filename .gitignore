@@ -3,3 +3,8 @@
 *.iml
 
 \production/
+*.jar
+
+exemplo3/src/META-INF-CLIENT/
+
+exemplo3/src/META-INF/

@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Servidor {
     private static final String PONTO_E_VIRGULA = ";";
-    private static final List<Questao> questoes = new ArrayList<>();
+    private static final Set<Questao> questoes = new HashSet<>();
 
     public static void main(String[] args) {
         DatagramSocket datagramSocket = inicializarSocket(args);
@@ -105,10 +105,13 @@ public class Servidor {
                 questao.setNumeroErros(Math.toIntExact(s.chars().filter(c -> c == 'F' || c == 'f').count()));
                 questao.incrementarAcertos(questao.getNumeroAcertos());
                 questao.incrementarErros(questao.getNumeroErros());
+
                 resposta.add(String.valueOf(questao.getNumeroQuestao()));
                 resposta.add(String.valueOf(questao.getNumeroAcertos()));
                 resposta.add(String.valueOf(questao.getNumeroErros()));
+
                 questoes.add(questao);
+
                 count = 0;
             }
         }
