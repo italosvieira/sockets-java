@@ -53,6 +53,7 @@ public class Servidor {
             Logger.info("Enviando mensagem de resposta para o cliente." + obterClienteComoStringPorByteArray(mensagem, mensagemResposta));
             datagramSocket.send(new DatagramPacket(mensagemResposta, mensagemResposta.length, mensagem.getAddress(), mensagem.getPort()));
             Logger.info("Mensagem de resposta enviada ao cliente com sucesso." + obterClienteComoStringPorByteArray(mensagem, mensagemResposta));
+            imprimirEstatisticas();
         } catch (Exception e) {
             Logger.error("Erro ao enviar mensagem para o cliente." + obterClienteComoStringPorByteArray(mensagem, "".getBytes()), e);
         }
@@ -126,6 +127,18 @@ public class Servidor {
             StringJoiner resposta = new StringJoiner(System.lineSeparator());
             questoes.forEach(q -> resposta.add(System.lineSeparator() + "Questão " + q.getNumeroQuestao() + ": Acertos = " + q.getNumeroAcertosTotais() + " Erros = " + q.getNumeroErrosTotais()));
             return resposta.toString().getBytes();
+        }
+    }
+
+    private static void imprimirEstatisticas() {
+        Logger.info("Iniciando impressão das estatísticas.");
+
+        if (questoes.isEmpty()) {
+            Logger.info("Ainda não existem questões para gerar estatísticas.");
+        } else {
+            StringJoiner resposta = new StringJoiner(System.lineSeparator());
+            questoes.forEach(q -> resposta.add(System.lineSeparator() + "Questão " + q.getNumeroQuestao() + ": Acertos = " + q.getNumeroAcertosTotais() + " Erros = " + q.getNumeroErrosTotais()));
+            Logger.info(resposta.toString());
         }
     }
 }
