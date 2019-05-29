@@ -15,9 +15,7 @@ public class Cliente {
 
     private static DatagramSocket inicializarSocket() {
         try {
-            DatagramSocket datagramSocket = new DatagramSocket();
-            datagramSocket.setSoTimeout(3000);
-            return datagramSocket;
+            return new DatagramSocket();
         } catch (Exception e) {
             Logger.error("Erro ao inicializar socket do cliente.", e);
             System.exit(1);
