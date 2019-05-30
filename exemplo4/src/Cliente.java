@@ -11,6 +11,7 @@ public class Cliente {
     private static String usuario;
     private static final String MENSAGEM_DESCONECTADO = "Desconectando da aplicação por inatividade de 60 segundos.";
     private static final String MENSAGEM_SAIDA_GRUPO = "Saindo do grupo e finalizando a aplicação.";
+    private static final String SAIR = "sair";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -25,12 +26,11 @@ public class Cliente {
         Logger.info("Conectado no chat. Pode começar a mandar mensagens.");
 
         while (true) {
-            //TODO colocar como 60 segundos
-            ScheduledFuture v = Executors.newSingleThreadScheduledExecutor().schedule(() -> sairDoGrupo(multicastSocket, inetSocketAddress, MENSAGEM_DESCONECTADO), 60, TimeUnit.SECONDS);
+            ScheduledFuture scheduledFuture = Executors.newSingleThreadScheduledExecutor().schedule(() -> sairDoGrupo(multicastSocket, inetSocketAddress, MENSAGEM_DESCONECTADO), 60, TimeUnit.SECONDS);
             String mensagem = scanner.nextLine();
-            v.cancel(true);
+            scheduledFuture.cancel(true);
 
-            if ("sair".equalsIgnoreCase(mensagem)) {
+            if (SAIR.equalsIgnoreCase(mensagem)) {
                 sairDoGrupo(multicastSocket, inetSocketAddress, MENSAGEM_SAIDA_GRUPO);
                 System.exit(0);
             } else {
